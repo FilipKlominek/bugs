@@ -1,0 +1,46 @@
+<div class="container">
+  <h1 class="h1">Bug Management</h1>
+  <h2 class="h2">Create a new bug</h2>
+  <form class="container d-flex p-0 gap-1">
+    <div class="form-group">
+      <label>Bug description
+        <input [(ngModel)]="description" class="form-control" name="username" type="text">
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Severity
+        <select [(ngModel)]="severity" class="form-select" name="languages">
+          <option value="2">Critical</option>
+          <option value="1">Major</option>
+          <option value="0">Minor</option>
+        </select>
+      </label>
+    </div>
+    <button (click)="create(description, severity)" class="btn btn-primary align-self-end">Submit</button>
+  </form>
+
+
+  <h2 class="h2 d-flex">Active bugs</h2>
+  <div class="list-group">
+    <div *ngFor="let bug of getActive()" class="list-group-item d-flex justify-content-between">
+      <div class="d-flex align-items-center gap-3">
+        <span>{{bug.description}}</span>
+        <span *ngIf="bug.severity == 2" class="bg-danger text-white tag"><b>Critical bug</b></span>
+        <span *ngIf="bug.severity == 1" class="bg-warning text-white tag"><b>Major bug</b></span>
+        <span *ngIf="bug.severity == 0" class="bg-info text-white tag"><b>Minor bug</b></span>
+      </div>
+      <button (click)="fix(bug)" class="btn btn-success">Mark as fixed</button>
+    </div>
+  </div>
+
+  <h2 class="h2 d-flex">Inactive bugs</h2>
+  <div class="list-group">
+    <div *ngFor="let bug of getInactive()" class="list-group-item d-flex justify-content-between">
+      <div class="d-flex align-items-center gap-3 text-muted">
+        <span><s>{{bug.description}}</s></span>
+        <span class="bg-success text-white tag"><b>Fixed</b></span>
+      </div>
+      <button (click)="unFix(bug)" class="btn btn-danger">Mark as broken</button>
+    </div>
+  </div>
+</div>
